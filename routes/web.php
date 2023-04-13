@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Models\Notification;
@@ -100,9 +101,17 @@ Route::middleware('auth')->group(function () {
 // CUSTOMER
 
 Route::middleware('auth')->group(function () {
-    Route::get('/customer/create', [ServiceController::class, 'create'])->name('customer.create')->middleware('auth');
+    Route::get('/customer/create', [ServiceController::class, 'create'])->name('customer.create');
     Route::post('/customer/create', [ServiceController::class, 'store']);
 
-    Route::get('/service/{id}/update', [ServiceController::class, 'updateIndex'])->name('service.update')->middleware('auth');
+    Route::get('/service/{id}/update', [ServiceController::class, 'updateIndex'])->name('service.update');
     Route::post('/service/{id}/update', [ServiceController::class, 'update']);
+});
+
+// CHATS
+
+Route::middleware('auth')->group(function () {
+   Route::get('chats', [ChatsController::class, 'index'])->name('chats');
+
+    Route::post('chat/{id}', [ChatsController::class, 'sendMessage'])->name('chat.send.message');
 });

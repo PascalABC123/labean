@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //database/migrations/<creation_date_>create_messages_table.php
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('chats', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_id')->nullable();
+            $table->foreignId('customer_id');
+            $table->foreignId('specialist_id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
-            $table->foreignId('chat_id')->unsigned();
-            $table->text('message');
         });
-
     }
 
     /**
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('chats');
     }
 };

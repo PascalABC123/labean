@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ServiceAcceptNotification;
 use App\Http\Requests\CreateService;
+use App\Models\Chat;
 use App\Models\Notification;
 use App\Models\Service;
 use App\Models\Specialization;
@@ -58,5 +59,11 @@ class ServiceController extends Controller
             'service_id' => $service->id,
             'type' => 'accept',
         ]);
+        Chat::create([
+            'customer_id' => $service->user->id,
+            'specialist_id' => auth()->id(),
+            'service_id' => $service->id,
+        ]);
+        return redirect('/chats');
     }
 }

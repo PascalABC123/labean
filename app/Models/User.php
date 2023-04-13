@@ -51,8 +51,7 @@ class User extends Authenticatable
         return $this->hasOne(Specialization::class);
     }
 
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
+    public function chats() {
+        return $this->hasMany(Chat::class);
     }
 }
